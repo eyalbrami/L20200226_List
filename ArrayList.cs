@@ -9,7 +9,7 @@ namespace L20200226_List
     public class ArrayList
     {
         private int[] arr;
-        private int count;
+        private int count; //גודל המערך
 
 
         public ArrayList()
@@ -17,25 +17,52 @@ namespace L20200226_List
             this.arr = new int[10];
             this.count = 0;
         }
-        public string ToString()
+        public override string ToString()
         {
-            string List = "";
-            for (int i = 0; i < arr.Length; i++)
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("{");
+
+            for (int i = 0; i < count; i++)
             {
-                List += arr[i] + (i == arr.Length - 1 ? "" : ",");
+                stringBuilder.Append(arr[i] + ",");
             }
-            return List;
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
 
         }
-        public bool Equals(ArrayList obj)
+        //נממש את STRINGBUILDER
+
+        public override bool Equals(object obj)
         {
-            return arr.Equals(obj);
+            //compare count
+            if (obj == null)
+                return false;
+            if (obj == this)
+                return true;
+            if (!(obj is ArrayList))
+                return false;
+            ArrayList other = (ArrayList)obj;
+            for (int i = 0; i < other.count; i++)
+            {
+                if (this.arr[i] != other.arr[i])
+                    return false;
+            }
+            return true;
+        }
+        public override int GetHashCode()
+        {
+            int result = 0;
+            for (int i = 0; i < count; i++)
+            {
+                result = result ^ arr[i];
+            }
+            return result;
         }
         public void Add(int x)
         {
             AddSpace();
-            arr[count++] = x;
-
+            arr[count++] = x; //קידום בא אחרי ההשמה ומקדם את גודל המערך
+            
         }
         private void AddSpace()
         {
@@ -63,72 +90,88 @@ namespace L20200226_List
             //check if the array is large enough
             AddSpace();
             //run from index to end of array
-            for (int i = count; i >= index; i--)
+            for (int i = count; i > index; i--)
             {
-                arr[i + 1] = arr[i];
+                arr[i] = arr[i - 1];
             }
-
+            this.arr[index] = x;
+            count++; //update the number of items
+        }
+        public int Get(int index)
+        {
+            return this.arr[index];
+        }
+        /// <summary>
+        /// מקבל ערך ומכניס אותו למקום
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="x"></param>
+        public void Set(int index, int x)
+        {
             this.arr[index] = x;
         }
-    public int Get(int index)
-    {
-        return this.arr[index];
-    }
-    /// <summary>
-    /// מקבל ערך ומכניס אותו למקום
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="x"></param>
-    public void Set(int index, int x)
-    {
-        this.arr[index] = x;
-    }
-    /// <summary>
-    /// מוחק איבר מהמקום ה-INDEX
-    /// </summary>
-    /// <param name="index"></param>
-    public void Remove(int index)
-    {
-
-    }
-    /// <summary>
-    /// מחזיר כמה איברים יש ברשימה
-    /// </summary>
-    /// <returns></returns>
-    public int Count()
-    {
-
-        return arr.Length;
-    }
-    /// <summary>
-    /// החזיר ערך לפי המיקום של האיבר
-    /// </summary>
-    /// <param name="x"></param>
-    /// <returns></returns>
-    public int IndexOf(int x)
-    {
-        for (int i = 0; i < arr.Length; i++)
+        /// <summary>
+        /// מוחק איבר מהמקום ה-INDEX
+        /// </summary>
+        /// <param name="index"></param>
+        public void Remove(int index)
         {
-            if (arr[i] != x)
-                continue;
-            return i;
+            if (index < 0 || index > count)
+            {
+                throw new Exception("the index out of bounds");
+            }
+            //check if the array is large enough
+            AddSpace();
+            //run from index to end of array
+            for (int i = index; i < count; i--)
+            {
+                arr[i] = arr[i + 1];
+            }
+            count--; //update the number of items
+
         }
-        return 0;
+        /// <summary>
+        /// מחזיר כמה איברים יש ברשימה
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
+        {
+
+            return count;
+        }
+        /// <summary>
+        /// החזיר ערך לפי המיקום של האיבר
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public int IndexOf(int x)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (arr[i] == x)
+                    return i;
+            }
+            return 0;
+        }
+        /// <summary>
+        /// מחזיר את הרשימה כמערך
+        /// </summary>
+        /// <returns></returns>
+        public int[] ToArray()
+        {
+            int[] temp = new int[count];
+            for (int i = 0; i < count; i++)
+            {
+                temp[i] = arr[i];
+            }
+            return temp;
+        }
+        /// <summary>
+        /// איפוס של הרשימה
+        /// </summary>
+        public void Clear()
+        {
+            count = 0;
+        }
     }
-    /// <summary>
-    /// מחזיר את הרשימה כמערך
-    /// </summary>
-    /// <returns></returns>
-    public int[] ToArray()
-    {
-        return arr;
-    }
-    /// <summary>
-    /// איפוס של הרשימה
-    /// </summary>
-    public void Clear()
-    {
-        new ArrayList();
-    }
-}
 }
