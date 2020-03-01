@@ -17,12 +17,12 @@ namespace L20200226_List
             arrayList.Add(3);
             arrayList.Add(400);
 
-            int n = 100;
-            for (int j = 0; j < n; j++)
-            {
-                arrayList.Add(j + 1000);
-            }
-
+            //int n = 100;
+            //for (int j = 0; j < n; j++)
+            //{
+            //    arrayList.Add(j + 1000);
+            //}
+            arrayList.Add(1, 700);
             Console.WriteLine("{" + arrayList.ToString() + "}");
 
             Console.WriteLine($"The index is : { arrayList.IndexOf(14)}");
