@@ -11,7 +11,6 @@ namespace L20200226_List
         static void Main(string[] args)
         {
             Node n1 = new Node(1000);
-
             Node n2 = new Node(-700);
             n1.Next = n2;
             Node n3 = new Node(800);
@@ -20,12 +19,14 @@ namespace L20200226_List
             n3.Next = n4;
             Node n5 = new Node(230);
             n4.Next = n5;
-            //n2.Next = n5; 
             PrintLinkedList(n1);
             Console.WriteLine($"Biggest { Biggest(n1)} ");
             Console.WriteLine($"Sum { Sum(n1)} ");
             Console.WriteLine($"Count { Count(n1)} ");
 
+
+            Linked linked = new Linked();
+            
 
 
 
