@@ -9,19 +9,27 @@ namespace L20200226_List
     public class Linked
     {
         private readonly Node anchor;
+        private Node last;
         private int count;
         public Linked()
         {
             anchor = new Node(123);
+            last = anchor;
+            count = 0;
         }
         public void Add(int x)
         {
-            Node last = anchor;
-            while (last.Next != null)
-            {
-                last = last.Next;
-            }
+            /*version 1*/
+            //Node last = anchor;
+            //while (last.Next != null)
+            //{
+            //    last = last.Next;
+            //}
+            //last.Next = new Node(x);
+
             last.Next = new Node(x);
+            last = last.Next;
+
             count++;
         }
         public void Add(int x, int index)
@@ -90,28 +98,59 @@ namespace L20200226_List
         public int[] ToArray()
         {
             int[] arr = new int[count];
-            Node node = anchor.Next;
+            Node node = anchor;
             for (int i = 0; i < count; i++)
             {
-                arr[i] = node.Value;
                 node = node.Next;
+                arr[i] = node.Value;
             }
             return arr;
         }
-        public override string  ToString()
+        public void Clear()
         {
+            anchor.Next = null;
+            count = 0;
+        }
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("{");
             Node node = anchor;
-            string list = "{";
-            while(node !=null)
+            for (int i = 0; i < count; i++)
             {
-                
-                list += node.Value+", ";
+                node = node.Next;
+                stringBuilder.Append(node.Value.ToString() + ", ");
             }
-
-            list += "}";
-            return list;
+            if (count > 0)
+                stringBuilder.Append(node.Value.ToString());
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
 
         }
-            
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+                return false;
+            if (obj == this)
+                return false;
+            if (!(obj is Linked))
+                return false;
+            Linked other = (Linked)obj;
+            if (this.count != other.count)
+                return false;
+
+            Node start = this.anchor;
+            Node end = other.anchor;
+
+            for (int i = 0; i < this.count; i++)
+            {
+                start = start.Next;
+                end = end.Next;
+                if (start.Value != end.Value)
+                    return false;
             }
+            return true;
+        }
+    }
 }

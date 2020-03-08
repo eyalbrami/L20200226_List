@@ -10,23 +10,33 @@ namespace L20200226_List
     {
         static void Main(string[] args)
         {
-            Node n1 = new Node(1000);
-            Node n2 = new Node(-700);
-            n1.Next = n2;
-            Node n3 = new Node(800);
-            n2.Next = n3;
-            Node n4 = new Node(2000);
-            n3.Next = n4;
-            Node n5 = new Node(230);
-            n4.Next = n5;
-            PrintLinkedList(n1);
-            Console.WriteLine($"Biggest { Biggest(n1)} ");
-            Console.WriteLine($"Sum { Sum(n1)} ");
-            Console.WriteLine($"Count { Count(n1)} ");
+            #region MyRegion
+            //Node n1 = new Node(1000);
+            //Node n2 = new Node(-700);
+            //n1.Next = n2;
+            //Node n3 = new Node(800);
+            //n2.Next = n3;
+            //Node n4 = new Node(2000);
+            //n3.Next = n4;
+            //Node n5 = new Node(230);
+            //n4.Next = n5;
+            //PrintLinkedList(n1);
+            //Console.WriteLine($"Biggest { Biggest(n1)} ");
+            //Console.WriteLine($"Sum { Sum(n1)} ");
+            //Console.WriteLine($"Count { Count(n1)} "); 
+            #endregion
 
 
             Linked linked = new Linked();
-            
+            linked.Add(99);
+            linked.Add(100);
+            int[] arr = new int[2];
+            arr.ToArray();
+            for (int i = 0; i < arr.Length; i++)
+            {
+
+            }
+            Console.WriteLine(linked.ToString());
 
 
 
@@ -139,7 +149,7 @@ namespace L20200226_List
                 }
                 first = first.Next;
             }
-
+            return true;
         }
     }
 }
